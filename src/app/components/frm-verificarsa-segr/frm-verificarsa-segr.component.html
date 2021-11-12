@@ -1,0 +1,136 @@
+<app-home></app-home>
+
+<div class="flex justify-content-center">
+    <div class="card w-9 mt-4">
+        <label style="font-family: sans-serif;">Disponibilita RSA</label>
+    </div>
+</div>
+<div class="flex justify-content-center">
+
+    <div class="border-1 h-full w-9 mb-6">
+        <div class="flex justify-content-center m-6">
+
+            <div>
+                <label class="m-2" for="" style="font-family: sans-serif;">RSA</label>
+                <input pInputText type="text">
+            </div>
+            <div>
+                <label class="m-2" for="" style="font-family: sans-serif;">Tipo Ricovero</label>
+                <input pInputText type="text">
+            </div>
+        </div>
+
+        <div class="flex justify-content-center m-6">
+
+            <div>
+                <label class="" for="" style="font-family: sans-serif;">Data Inizio </label>
+                <p-calendar [showIcon]="true" inputId="basic"></p-calendar>
+            </div>
+            <div>
+                <label class="m-2" for="" style="font-family: sans-serif;">Data Fine</label>
+                <p-calendar [showIcon]="true" inputId="basic"></p-calendar>
+            </div>
+        </div>
+
+
+        <div class="flex justify-content-center m-4">
+
+            <div class="m-4">
+                <buttton pButton>Ricerca</buttton>
+            </div>
+            <div class="m-4">
+                <buttton pButton>Nuova Ricerca</buttton>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+
+<div class="flex justify-content-center mb-6">
+    <div class="border-1 w-9 h-10rem">
+        <p-checkbox class="px-4 mt-4" name="groupname" value="val1"></p-checkbox>
+        <label class="" for="" style="font-family: sans-serif;">Tipologia posto letto: Comune</label>
+    </div>
+</div>
+
+<div class="flex justify-content-center mb-6">
+    <div class="border-1 w-9 h-20rem">
+        <div class="flex justify-content-evenly">
+            <div>
+                <p-checkbox class="px-4 mt-4" name="groupname" value="val1"></p-checkbox>
+                <label class="" for="" style="font-family: sans-serif;">Si</label>
+            </div>
+            <div>
+                <p-checkbox class="px-4 mt-4" name="groupname" value="val1"></p-checkbox>
+                <label class="" for="" style="font-family: sans-serif;">No</label>
+            </div>
+        </div>
+
+        <div class="flex justify-content-center">
+            <h1 class="py-4">RSA</h1>
+            <p-dropdown class="mt-4 px-8 py-4" [options]="types" optionLabel="name"></p-dropdown>
+            <div class="mt-4 py-4">
+                <button pButton pRipple type="button"><i class="pi pi-plus"></i></button>
+            </div>
+        </div>
+
+        <div class="py-4">
+            <p-treeTable [value]="files" [columns]="cols">
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th *ngFor="let col of columns">
+                            {{col.header}}
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                    <tr>
+                        <td *ngFor="let col of columns; let i = index">
+                            <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                            {{rowData[col.field]}}
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="summary">
+                    <div class="flex justify-content-end">
+                    </div>
+                </ng-template>
+            </p-treeTable>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+<div class="flex justify-content-center">
+    <div class="border-1 h-10rem w-9">
+        <div class="flex justify-content-evenly mt-6">
+            <buttton pButton>Salva Bozza</buttton>
+            <buttton pButton>Modifica</buttton>
+        </div>
+
+    </div>
+</div>
+
+<div class="flex justify-content-center py-4">
+    <div class="border-1 h-10rem w-9">
+        <div class="flex justify-content-center mt-6">
+            <buttton pButton>Invia</buttton>
+        </div>
+
+    </div>
+</div>
+
+<div class="flex justify-content-center py-4">
+    <div class="border-1 h-10rem w-9">
+        <div class="flex justify-content-center mt-6">
+            <h1 style="font-family: sans-serif;">Footer</h1>
+        </div>
+    </div>
+</div>

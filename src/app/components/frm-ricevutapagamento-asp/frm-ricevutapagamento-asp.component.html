@@ -1,0 +1,147 @@
+<app-home></app-home>
+
+<div class="flex justify-content-center">
+    <div class="border-1 w-9 h-full m-4">
+        <div class="flex">
+            <label for="" class="m-4 px-6">Ricevuta</label>
+            <div class="flex justify-content-evenly">
+                <p-radioButton class="m-4" name="value" value="val1" inputId="val1"></p-radioButton>
+                <label class="mt-4" for="val1">Presente</label>
+            </div>
+
+            <div class="flex justify-content-evenly">
+                <p-radioButton class="m-4" name="value" value="val2" inputId="val2"></p-radioButton>
+                <label class="mt-4" for="val2">Non Presente</label>
+            </div>
+
+        </div>
+
+        <div class="m-4 flex justify-content-around">
+            <label class="py-2" for="">Acconto</label>
+            <div>
+                <input pInputText type="text" name="" id="">
+            </div>
+            <label class="py-2" for="">Data</label>
+            <div>
+                <p-calendar [showIcon]="true" inputId="basic"></p-calendar>
+            </div>
+            <label class="py-2" for="">Nr. Rif.</label>
+            <div>
+                <input pInputText type="text">
+            </div>
+
+
+        </div>
+
+        <div>
+            <label for="" class="m-4 px-6">Allega Ricevuta Pagamento</label>
+            <div class="flex justify-content-center">
+                <div class="border-1 w-11 h-full m-4 px-4">
+                    <div class="card m-4">
+                        <div class="flex justify-content-between">
+                            <div>
+                                <label for="" class="m-8">Tipologia</label>
+                                <p-dropdown class="m-8" [options]="types" optionLabel="name"></p-dropdown>
+                            </div>
+                            <!-- <p-fileUpload mode="basic" name="demo[]"  accept="image/*, .txt"
+                            maxFileSize="1000000" [auto]="true" chooseLabel="Aggiungi File" (onUpload)="onUpload($event)"></p-fileUpload> -->
+
+                            <div class="card">
+                                <!-- <h5>Advanced</h5> -->
+                                <p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event)"
+                                    multiple="multiple" accept="image/*" maxFileSize="1000000"
+                                    (onBeforeUpload)="onBeforeUpload($event)">
+                                    <ng-template pTemplate="content">
+
+                                    </ng-template>
+                                </p-fileUpload>
+                            </div>
+
+                            <p-fileUpload mode="basic" name="demo[]" accept="image/*" maxFileSize="1000000"
+                                (onUpload)="onBasicUpload($event)"></p-fileUpload>
+                        </div>
+                    </div>
+
+                    <!-- Table to be added from primeng -->
+                    <div class="py-4">
+
+
+
+                        <p-table [value]="uploadedFiles">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th>Documento Allegato</th>
+                                    <th>Azioni</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-product>
+                                <tr>
+                                    <!-- <td>{{product.name}}</td>
+                                    <td>{{product.size}}</td> -->
+
+                                    <!-- <div class="flex justify-content-end">
+                                        <div style="text-align:left">
+                                            <p-button icon="pi pi-download"></p-button>
+                                        </div>
+                                        <th style="width: 8rem">
+                                            <p-button icon="pi pi-times"></p-button>
+                                        </th>
+                                    </div> -->
+
+                                </tr>
+                            </ng-template>
+                        </p-table>
+
+                        <!-- <p-treeTable [value]="files" [columns]="cols"> -->
+                        <!-- <ng-template pTemplate="caption">
+                                FileSystem
+                            </ng-template> -->
+                        <!-- <ng-template pTemplate="header" let-columns>
+                            <tr>
+                                <th *ngFor="let col of columns">
+                                    {{col.header}}
+                                </th> -->
+                        <!-- <th style="width: 8rem">
+                        <p-button icon="pi pi-cog"></p-button>
+                        </th> -->
+                        <!-- </tr>
+                        </ng-template> -->
+                        <!-- <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                            <tr>
+                                <td *ngFor="let col of columns; let i = index">
+                                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                                    {{rowData[col.field]}} 
+                                </td>
+                                <td>
+                                    <p-button icon="pi pi-search" styleClass="p-button-success"
+                                        [style]="{'margin-right': '.5em'}"></p-button>
+                                    <p-button icon="pi pi-pencil" styleClass="p-button-warning"></p-button>
+                                </td>
+                            </tr>
+                        </ng-template> -->
+                        <!-- <ng-template pTemplate="summary">
+                            <div class="flex justify-content-start">
+                                <ul *ngIf="uploadedFiles.length">
+                                    <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+                                </ul>
+                            </div>
+                            <div class="flex justify-content-end">
+                                <div style="text-align:left">
+                                    <p-button icon="pi pi-download"></p-button>
+                                </div>
+                                <th style="width: 8rem">
+                                    <p-button icon="pi pi-times"></p-button>
+                                </th>
+                            </div>
+
+                        </ng-template>
+                    </p-treeTable> -->
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-footer></app-footer>
