@@ -1,10 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable()
 export class EventService {
 
+
     constructor(private http: HttpClient) { }
+    
 
     getEvents() {
     return this.http.get<any>('assets/showcase/data/scheduleevents.json')
@@ -12,4 +15,5 @@ export class EventService {
       .then(res => <any[]>res.data)
       .then(data => { return data; });
     }
+
 }

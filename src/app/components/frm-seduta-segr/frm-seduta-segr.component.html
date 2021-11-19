@@ -9,12 +9,30 @@
 <div class="flex justify-content-center">
 
 
-<div class="flex justify-content-center border-1 w-9 m-4">
-    <!-- <div class="border-1 w-12 m-2"> -->
-        <p-fullCalendar class="m-4 p-4 w-9" [events]="events" [options]="options"></p-fullCalendar>
-    <!-- </div> -->
-</div>
+
+    <div class="flex justify-content-center border-1 w-9 m-4">
+        <p-fullCalendar class="m-4 p-4 w-12 fc-today" [events]="events" [options]="options"></p-fullCalendar>
+    </div>
 
 </div>
+
+<p-dialog header="Fissa un nuovo appuntamento" [contentStyle]="{'overflow': 'visible'}" [maximizable]="true"
+    [(visible)]="displayAddAppointment" modal="modal">
+    <input class="ml-2" pInputText type="text" [(ngModel)]="appointment">
+    <p-calendar class="ml-2" [showIcon]="true" [(ngModel)]="dateStartFromButton" showTime="true" inputId="basic">
+    </p-calendar>
+    <button class="ml-2" pButton label="Aggiungi" type="submit" (click)="addButtonAppoitnment()"></button>
+    <button class="ml-2 p-button-secondary" pButton label="Modifica" type="submit"></button>
+    <button class="ml-2 p-button-danger" pButton label="Anulla" type="submit" (click)="cancelAppointment()"></button>
+</p-dialog>
+
+
+<p-dialog header="Fissa un nuovo appuntamento" [(visible)]="display" modal="modal">
+    <input pInputText type="text" [(ngModel)]="appointment">
+    <button class="ml-2" pButton label="Aggiungi" type="submit" (click)="addAppointment()"></button>
+    <button class="ml-2 p-button-secondary" pButton label="Modifica" type="submit"></button>
+    <button class="ml-2 p-button-danger" pButton label="Anulla" type="submit" (click)="cancelAppointment()"></button>
+</p-dialog>
+
 
 <app-footer></app-footer>

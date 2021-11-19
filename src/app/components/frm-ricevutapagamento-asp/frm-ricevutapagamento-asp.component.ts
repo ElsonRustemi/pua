@@ -52,22 +52,23 @@ export class FrmRicevutapagamentoAspComponent implements OnInit {
 
   }
 
-  onBeforeUpload(event) {
-  }
-
   onUpload(event) {
     for (let file of event.files) {
       this.uploadedFiles.push(file);
-    console.log(event);
-      
+      console.log(event);
+
     }
 
     this.messageService.add({ severity: 'info', summary: 'File Uploaded', detail: '' });
   }
 
 
-  onBasicUpload(event) {
-    console.log(event);
+  myUploader(event) {
+    console.log(event.files);
+    this.uploadedFiles = event.files.map((file) => {
+      return file;
+    })
   }
+
 
 }

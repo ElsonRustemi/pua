@@ -19,6 +19,8 @@ import {FullCalendarModule} from 'primeng/fullcalendar';
 import {CheckboxModule} from 'primeng/checkbox';
 import { MessageService } from 'primeng/api';
 import {TableModule} from 'primeng/table';
+import {DialogModule} from 'primeng/dialog';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -67,7 +69,9 @@ import { InitialdataComponent } from './components/initialdata/initialdata.compo
     CalendarModule,
     CheckboxModule,
     AppRoutingModule,
-    TableModule
+    TableModule,
+    DialogModule,
+    FormsModule
     
   ],
   providers: [NodeService, EventService, MessageService],
