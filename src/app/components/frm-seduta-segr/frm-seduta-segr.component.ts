@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -12,20 +12,27 @@ import { FormsModule } from '@angular/forms';
 import DateClicking from '@fullcalendar/interaction/interactions/DateClicking';
 import DateSelecting from '@fullcalendar/interaction/interactions/DateSelecting';
 import { title } from 'process';
-
-// export interface IHash {
-//   [date: string] : string;
-// } 
+import { DatePipe } from '@angular/common';
+import { element } from 'protractor';
 
 
 @Component({
   selector: 'app-frm-seduta-segr',
   templateUrl: './frm-seduta-segr.component.html',
-  styleUrls: ['./frm-seduta-segr.component.css']
+  styleUrls: ['./frm-seduta-segr.component.css'],
+  providers: [DatePipe]
 })
-export class FrmSedutaSegrComponent implements OnInit {
+export class FrmSedutaSegrComponent implements OnInit, AfterViewInit {
 
   date = new Date();
+
+  maxEventsPerDay = 10;
+  inBetweenEventPerDay = 9;
+  minEventPerDay = 6;
+
+  daysLimit = [];
+
+  totalEventsPerday = 10;
 
   events = [];
 
@@ -35,152 +42,193 @@ export class FrmSedutaSegrComponent implements OnInit {
   appointment = "";
   dateStart = "";
   dateEnd = "";
+  id = "";
+  eventId = "";
 
   dateStartFromButton = "";
 
   displayAddAppointment: boolean;
+  minimumDate = this.date;
+
+  // changeEvent = false;
+  eventTitleToBeChanged = "";
+  updateEventModal = false;
+
+  totalAmountOfEvents: boolean = false;
+  disableDatesBeforeCurrentDate: boolean = false;
 
 
   display: boolean = false;
 
-  @ViewChild('calendar') private calendar: FullCalendar;
+
+  
+  @ViewChild('calendar') calendar: FullCalendar;
   httpClient: any;
 
-  constructor(private eventService: EventService, private fb: FormBuilder) { }
+  constructor(private eventService: EventService, private fb: FormBuilder, private datePipe: DatePipe) { }
 
 
   ngOnInit(): void {
 
-    this.events = [...this.events, 
-    // { title: 'event 1', start: '2021-11-16', end: '2021-11-18', color: ''},
-    { title: 'event 2', date: '2021-11-16T14:30:00+00:00', color: '' },
-    { title: 'event 3', date: '2021-11-16T15:30:00+00:00', color: '' },
-    { title: 'event 4', date: '2021-11-16T16:30:00+00:00', color: '' },
-    { title: 'event 2', date: '2021-11-17T14:30:00+00:00', color: '' },
-    { title: 'event 3', date: '2021-11-17T15:30:00+00:00', color: '' },
-    { title: 'event 4', date: '2021-11-17T16:30:00+00:00', color: '' },
 
-    { title: 'event 2', date: '2021-11-20T14:30:00+00:00', color: '' },
-    { title: 'event 3', date: '2021-11-20T15:30:00+00:00', color: '' },
-    { title: 'event 4', date: '2021-11-20T16:30:00+00:00', color: '' },
+    this.events = [...this.events,
+    // { title: 'event 1', start: '2021-11-16', end: '2021-11-18', color: ''},
+    // {date: this.date, display: 'background', overlap: false, color: '#ff9f89'},
+    {id: '1', title: 'event 1', date: '2021-11-26T14:30:00+00:00', color: '' },
+    {id: '2', title: 'event 2', date: '2021-11-26T15:30:00+00:00', color: '' },
+    {id: '3', title: 'event 3', date: '2021-11-26T16:30:00+00:00', color: '' },
+    {id: '4', title: 'event 4', date: '2021-11-26T14:30:00+00:00', color: '' },
+    {id: '5', title: 'event 5', date: '2021-11-26T15:30:00+00:00', color: '' },
+    {id: '6', title: 'event 6', date: '2021-11-26T16:30:00+00:00', color: '' },
+    {id: '7', title: 'event 7', date: '2021-11-26T14:30:00+00:00', color: '' },
+    {id: '8', title: 'event 8', date: '2021-11-26T15:30:00+00:00', color: '' },
+    {id: '9', title: 'event 9', date: '2021-11-26T16:30:00+00:00', color: '' },
+    {id: '10', title: 'event 10', date: '2021-11-26T16:30:00+00:00', color: '' },
+
+    {id: '11', title: 'event 11', date: '2021-11-17T14:30:00+00:00', color: '' },
+    {id: '12', title: 'event 12', date: '2021-11-17T15:30:00+00:00', color: '' },
+    {id: '13', title: 'event 13', date: '2021-11-17T14:30:00+00:00', color: '' },
+    {id: '14', title: 'event 14', date: '2021-11-17T15:30:00+00:00', color: '' },
+    {id: '15', title: 'event 15', date: '2021-11-17T14:30:00+00:00', color: '' },
+    {id: '16', title: 'event 16', date: '2021-11-17T15:30:00+00:00', color: '' },
+    {id: '17', title: 'event 17', date: '2021-11-17T14:30:00+00:00', color: '' },
+
+    {id: '18', title: 'event 18', date: '2021-11-20T14:30:00+00:00', color: '' },
+    {id: '19', title: 'event 19', date: '2021-11-20T15:30:00+00:00', color: '' },
+    {id: '20', title: 'event 20', date: '2021-11-20T16:30:00+00:00', color: '' },
+    {id: '21', title: 'event 21', date: '2021-11-20T15:30:00+00:00', color: '' },
+    {id: '22', title: 'event 22', date: '2021-11-20T16:30:00+00:00', color: '' },
+    
+
     ]
 
-    // this.events.map((event) => {
-    //   let totalDate = new Date(event.date);
-    //   console.log(totalDate);
-      
-      
-    //   let totalNumberOfDates = event.length;
-    //   console.log(totalNumberOfDates);
-      
-    //   event['color'] = totalNumberOfDates > 0 &&  totalNumberOfDates <= 5 ? 'red' : (totalNumberOfDates > 5 && totalNumberOfDates <= 8 ? 'yellow' : 'blue');
 
-    // })
-
-
-    let datesWithEventOnThem = this.events.map((event) => {
-      let dateEvents = new Date(event.date).getDate();
-      
-
-      console.log(dateEvents);
-      
-
-      // event['color'] = dateEvents > 0 &&  dateEvents <= 5 ? 'red' : (dateEvents > 5 && dateEvents <= 8 ? 'yellow' : 'blue');
-
-
-      // dateEvents.push()
-      return dateEvents;      
-    })
-
-    const counts = {};
-    datesWithEventOnThem.forEach(function(x) {counts[x] = (counts[x] || 0) + 1; });
-    // const counts = {};
-    // this.events.forEach(function(x) { counts[x] = (counts[x] || 0) + 1; });
-    console.log(counts);
-
-    console.log(datesWithEventOnThem);
-
-
-    
-    
-    
-
-      let numberOfEventsPerDay = this.events.map((event) => {
-      // let allEventDates = new Date(event.date);
-
-        let eventTitles = event.title;
-        return eventTitles;
-
-
-      // return allEventDates
-      // console.log(allEventDates);
-
-      
-      
-      // let totalNumberOfDates = event.length;
-      // console.log(totalNumberOfDates);
-      
-      // event['color'] = totalNumberOfDates > 0 &&  totalNumberOfDates <= 5 ? 'red' : (totalNumberOfDates > 5 && totalNumberOfDates <= 8 ? 'yellow' : 'blue');
-
-    })
-
-    console.log(numberOfEventsPerDay);
-    
-
-
-
-    // this.events[this.dateStart].map((event) => {
-    //   let allDates = new Date(event.date)
-    //   console.log(event);
-      
-    // })
-
-    console.log(this.events);
+    this.daysToDisable();
 
     this.options = {
       plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
       locale: itLocale,
       header: {
-        left: 'prev,next',
+        left: 'prev,next, legend',
         center: 'title',
         right: 'addAppointmentButton'
       },
+      initialDate: this.dateStart,
       eventLimit: true,
       views: {
         timeGrid: {
-          eventLimit: 3,
+          // eventLimit: 3,
           dayMaxEventRows: 5
         }
       },
       dateClick: (e) => {
-        
-        this.display = true;
-        this.dateStart = e.dateStr;
-        this.dateEnd = e.dateStr;
 
-        // let sameEventsDate = e.date;
+        let start = this.datePipe.transform(e.dateStr, 'yyyy-MM-dd');
+        let today = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
 
-        // console.log(sameEventsDate.length);
-        
-        console.log(e.date);
+        if (start < today) {
+          // alert('Cannot add appointment to this date.');
+          this.disableDatesBeforeCurrentDate = true;
+        } else {
+          this.display = true;
+          // this.id = e.findIndex();
+          this.dateStart = e.dateStr;
+          this.dateEnd = e.dateStr;
+        }
+
       },
-      getEventsPerDate: (e) => {
+      eventClick: (event, element, eventClickInfo) => {
+        console.log(event.event.title);
+        console.log(event.event.id);
 
-        // if(this.events.length > 3) {
-        //   e.color = 'red'
+        this.eventId = event.event.id;
+        
+        // let calEvent = eventClickInfo.event;
+        // console.log(calEvent);
+        
+        // if(event.title) {
+        //   console.log(title);
         // }
+        this.updateEventModal = true;
 
-        // console.log(e.this.events);
+        // console.log(this.calendar.events[4].title);
+        console.log(event);
         
+        // console.log(typeof event);
+
+        // event.title = true;
+        // this.eventTitleToBeChanged = event.title;
+
+      //   let indexOfEvents = [];
+
+      //   let events = this.events;
+
+      //   // console.log(events.findIndex(event));
+
+      //   events.forEach((element, index, array) => {
+      //     // console.log(element.x); // 100, 200, 300
+      //     // console.log(index); // 0, 1, 2
+      //     // console.log(array); // same myArray object 3 times
+      //     // console.log(array);
+      //     indexOfEvents.push(index);
+      // });
+        
+      // console.log(indexOfEvents);
+      // console.log(event.title);
       
+      
+
+        // events.forEach((index) => {
+        //   console.log(index);
+        // })
+
+        // console.log(events);
+
+        this.eventTitleToBeChanged = event.event.title
+
+        let getEvent = this.events.filter(el => el.title === event.event.title)
+        console.log(getEvent);
+
+
+
+        // let eventId = this.events.filter(el => el.id === event.event.id)
+        // console.log(eventId);
+
+        // if(getEvent) {
+        //   event.setProp("title", getEvent)
+        // }
+        
+        
+        // .map(el=> {
+        //   console.log();
+
+        //     // this.eventTitleToBeChanged = this.calendar.events[4].title
+        //     this.eventTitleToBeChanged = event.event.title
+        //     // this.eventTitleToBeChanged = this.calendar.events.title[event]
+
+
+        // })
+
+        
+
+        // this.changeEvent = event.title;
+
+        
       },
+      // eventDrop: eventDropInfo => {
+      //   const { event } = eventDropInfo;
+
+      //   // console.log(event.title);
+        
+      // },
+      eventAfterAllRender: this.colorEvents(),
       customButtons: {
         addAppointmentButton: {
           text: 'Nuovo Appuntamento',
           click: this.addButtonAppoitnment.bind(this)
-        }
+        },
       },
-
+      eventColor: '#378006',
       editable: true,
       selectable: true,
       selectMirror: true,
@@ -190,52 +238,161 @@ export class FrmSedutaSegrComponent implements OnInit {
   }
 
 
+  // someMethod() {
+  //   let calendarApi = this.calendar.getCalendar();
+  //   calendarApi.next();
+  // }
 
-  colorEvents (view) {
+
+
+  colorEvents() {
 
     let events = this.events;
+
     let dates = {};
 
-    events.forEach(function(ev, index) {
-      let startDateStr = ev.date.format("YYYY-MM-DD");
+    events.forEach((ev, index) => {
+      let startDateStr = this.datePipe.transform(ev.date, 'yyyy-MM-dd');
+
+      // console.log(startDateStr);
+
       dates[startDateStr] = (dates[startDateStr] + 1 || 1);
     });
 
-    console.log(dates);
+    this.events = this.events.map(el => {
+      let checkDate = this.datePipe.transform(el.date, 'yyyy-MM-dd');
 
-    for (var dt in dates) {
-      if(dates[dt] > 1){
-        
+      for (let dt in dates) {
+        if (checkDate === dt) {
+          if (dates[dt] >= this.maxEventsPerDay) {
+            el['color'] = '#FF5349';
+          } else if (dates[dt] < this.maxEventsPerDay && dates[dt] > this.minEventPerDay) {
+            el['color'] = '#FFBF00';
+          } else if (dates[dt] < this.minEventPerDay) {
+            el['color'] = '#378006';
+          }
+        }
       }
+      return el;
+    })
+
+  }
+
+
+
+  daysToDisable() {
+    let events = this.events;
+    // console.log(events);
+
+    let dates = {};
+
+    events.forEach((ev, index) => {
+      let startDateStr = this.datePipe.transform(ev.date, 'yyyy-MM-dd');
+      // console.log(startDateStr);
+      dates[startDateStr] = (dates[startDateStr] + 1 || 1);
+    });
+
+    for (let dt in dates) {
+
+      if (dates[dt] === 10)
+        this.daysLimit.push(new Date(dt));
     }
+
   }
 
 
 
 
+  // FF5349 color:red
+  // 35A4FB color:blue
+  // FFBF00 color:yellow
 
   addButtonAppoitnment() {
-    this.displayAddAppointment = !this.displayAddAppointment;
-    this.events = [...this.events, {
-      title: this.appointment,
-      date: this.dateStartFromButton
-    }]
 
-    return this.appointment = "", this.dateStartFromButton = "";
+    let start = this.datePipe.transform(this.dateStartFromButton, 'yyyy-MM-dd');
+    let today = this.datePipe.transform(new Date(), 'yyyy-MM-dd')
+
+    this.displayAddAppointment = !this.displayAddAppointment;
+
+    if (start < today) {
+      alert('Cannot add appointment to this date.');
+    } else {
+      this.events = [...this.events, {
+        title: this.appointment,
+        date: this.dateStartFromButton
+      }]
+    }
+
+    // let daysLimitBool = false;
+
+    // this.daysLimit.map(el => {
+    //   let testDate = this.datePipe.transform(el, "yyyy-MM-dd");
+    //   if (this.dateStartFromButton === testDate) {
+    //     daysLimitBool = true;
+    //   }
+    // })
+
+
+    // if (daysLimitBool) {
+    //   alert("Reached total amount of events. Please select another date.");
+    // } else {
+    //   this.events = [...this.events, {
+    //     title: this.appointment,
+    //     date: this.dateStartFromButton
+    //   }]
+    //   this.daysToDisable();
+    // }
+
+
+    return this.appointment = "", this.dateStartFromButton = "", this.colorEvents();
 
   }
 
   addAppointment() {
-    this.events = [...this.events, {
-      title: this.appointment,
-      date: this.dateStart,
-    }]
+
+    let daysLimitBool = false;
+
+    this.daysLimit.map(el => {
+      let testDate = this.datePipe.transform(el, "yyyy-MM-dd");
+      if (this.dateStart === testDate) {
+        daysLimitBool = true;
+      }
+    })
+
+
+    if (daysLimitBool) {
+      // alert("Reached total amount of events. Please select another date.");
+      this.totalAmountOfEvents = true;
+    } else {
+      this.events = [...this.events, {
+        // id: this.id,
+        title: this.appointment,
+        date: this.dateStart,
+      }]
+      this.daysToDisable();
+    }
 
     console.log(this.events);
+    
 
-    // console.log(this.events.map((event) => { event.events, event.date }));
+    return this.appointment = "", this.display = false, this.colorEvents();
 
-    return this.appointment = "", this.display = false;
+  }
+
+  updateAppointment() {
+
+    // if(!this.eventId) {
+    //   this.events = [...this.events, {
+    //     title: this.appointment,
+    //     date: this.dateStart
+    //   }]
+    // } else {
+    //   this.events = [...this.events, {
+    //     // title: this.,
+    //   }]
+    // }
+
+
 
   }
 
@@ -243,6 +400,10 @@ export class FrmSedutaSegrComponent implements OnInit {
   cancelAppointment() {
     this.displayAddAppointment = false;
     this.display = false;
+  }
+
+  ngAfterViewInit() {
+    // ...
   }
 
 }
