@@ -3,7 +3,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { EventService } from 'src/app/services/eventservice.service';
-import { FullCalendar } from 'primeng/fullcalendar';
+import { FullCalendar, FullCalendarModule } from 'primeng/fullcalendar';
 import { Calendar } from '@fullcalendar/core';
 import frLocale from '@fullcalendar/core/locales/fr';
 import itLocale from '@fullcalendar/core/locales/it';
@@ -14,6 +14,14 @@ import DateSelecting from '@fullcalendar/interaction/interactions/DateSelecting'
 import { title } from 'process';
 import { DatePipe } from '@angular/common';
 import { element } from 'protractor';
+
+
+interface IEvents {
+  id: number;
+  title: string;
+  date: string;
+  color: string;
+}
 
 
 @Component({
@@ -27,8 +35,8 @@ export class FrmSedutaSegrComponent implements OnInit, AfterViewInit {
   date = new Date();
 
   maxEventsPerDay = 10;
-  inBetweenEventPerDay = 9;
-  minEventPerDay = 6;
+  inBetweenEventPerDay = this.maxEventsPerDay - 1;
+  minEventPerDay = this.maxEventsPerDay - 5;
 
   daysLimit = [];
 
@@ -60,7 +68,12 @@ export class FrmSedutaSegrComponent implements OnInit, AfterViewInit {
 
   display: boolean = false;
 
+  isEdit: boolean = false;
 
+
+  oldEventIndex;
+  testEventTitle;
+  // oldEventData;
   
   @ViewChild('calendar') calendar: FullCalendar;
   httpClient: any;
@@ -74,30 +87,28 @@ export class FrmSedutaSegrComponent implements OnInit, AfterViewInit {
     this.events = [...this.events,
     // { title: 'event 1', start: '2021-11-16', end: '2021-11-18', color: ''},
     // {date: this.date, display: 'background', overlap: false, color: '#ff9f89'},
-    {id: '1', title: 'event 1', date: '2021-11-26T14:30:00+00:00', color: '' },
-    {id: '2', title: 'event 2', date: '2021-11-26T15:30:00+00:00', color: '' },
-    {id: '3', title: 'event 3', date: '2021-11-26T16:30:00+00:00', color: '' },
-    {id: '4', title: 'event 4', date: '2021-11-26T14:30:00+00:00', color: '' },
-    {id: '5', title: 'event 5', date: '2021-11-26T15:30:00+00:00', color: '' },
-    {id: '6', title: 'event 6', date: '2021-11-26T16:30:00+00:00', color: '' },
-    {id: '7', title: 'event 7', date: '2021-11-26T14:30:00+00:00', color: '' },
-    {id: '8', title: 'event 8', date: '2021-11-26T15:30:00+00:00', color: '' },
-    {id: '9', title: 'event 9', date: '2021-11-26T16:30:00+00:00', color: '' },
-    {id: '10', title: 'event 10', date: '2021-11-26T16:30:00+00:00', color: '' },
-
-    {id: '11', title: 'event 11', date: '2021-11-17T14:30:00+00:00', color: '' },
-    {id: '12', title: 'event 12', date: '2021-11-17T15:30:00+00:00', color: '' },
-    {id: '13', title: 'event 13', date: '2021-11-17T14:30:00+00:00', color: '' },
-    {id: '14', title: 'event 14', date: '2021-11-17T15:30:00+00:00', color: '' },
-    {id: '15', title: 'event 15', date: '2021-11-17T14:30:00+00:00', color: '' },
-    {id: '16', title: 'event 16', date: '2021-11-17T15:30:00+00:00', color: '' },
-    {id: '17', title: 'event 17', date: '2021-11-17T14:30:00+00:00', color: '' },
-
-    {id: '18', title: 'event 18', date: '2021-11-20T14:30:00+00:00', color: '' },
-    {id: '19', title: 'event 19', date: '2021-11-20T15:30:00+00:00', color: '' },
-    {id: '20', title: 'event 20', date: '2021-11-20T16:30:00+00:00', color: '' },
-    {id: '21', title: 'event 21', date: '2021-11-20T15:30:00+00:00', color: '' },
-    {id: '22', title: 'event 22', date: '2021-11-20T16:30:00+00:00', color: '' },
+    {id: "1", title: 'event 1', date: '2021-12-08T14:30:00+00:00', color: '' },
+    {id: "2", title: 'event 2', date: '2021-12-08T15:30:00+00:00', color: '' },
+    {id: "3", title: 'event 3', date: '2021-12-08T16:30:00+00:00', color: '' },
+    {id: "4", title: 'event 4', date: '2021-12-08T14:30:00+00:00', color: '' },
+    {id: "5", title: 'event 5', date: '2021-12-08T15:30:00+00:00', color: '' },
+    {id: "6", title: 'event 6', date: '2021-12-08T16:30:00+00:00', color: '' },
+    {id: "7", title: 'event 7', date: '2021-12-08T14:30:00+00:00', color: '' },
+    {id: "8", title: 'event 8', date: '2021-12-08T15:30:00+00:00', color: '' },
+    {id: "9", title: 'event 9', date: '2021-12-08T16:30:00+00:00', color: '' },
+    {id: "10", title: 'event 10', date: '2021-12-08T16:30:00+00:00', color: '' },
+    {id: "11", title: 'event 11', date: '2021-12-17T14:30:00+00:00', color: '' },
+    {id: "12", title: 'event 12', date: '2021-12-17T15:30:00+00:00', color: '' },
+    {id: "13", title: 'event 13', date: '2021-12-17T14:30:00+00:00', color: '' },
+    {id: "14", title: 'event 14', date: '2021-12-17T15:30:00+00:00', color: '' },
+    {id: "15", title: 'event 15', date: '2021-12-17T14:30:00+00:00', color: '' },
+    {id: "16", title: 'event 16', date: '2021-12-17T15:30:00+00:00', color: '' },
+    {id: "17", title: 'event 17', date: '2021-12-17T14:30:00+00:00', color: '' },
+    {id: "18", title: 'event 18', date: '2021-12-20T14:30:00+00:00', color: '' },
+    {id: "19", title: 'event 19', date: '2021-12-20T15:30:00+00:00', color: '' },
+    {id: "20", title: 'event 20', date: '2021-12-20T16:30:00+00:00', color: '' },
+    {id: "21", title: 'event 21', date: '2021-12-20T15:30:00+00:00', color: '' },
+    {id: "22", title: 'event 22', date: '2021-12-20T16:30:00+00:00', color: '' },
     
 
     ]
@@ -137,11 +148,24 @@ export class FrmSedutaSegrComponent implements OnInit, AfterViewInit {
         }
 
       },
+      eventRender: function(date, cell) {
+
+        
+
+      },
       eventClick: (event, element, eventClickInfo) => {
+        // console.log(element);
+        
         console.log(event.event.title);
         console.log(event.event.id);
 
+        this.testEventTitle = event.event.title;
+
+        let eventId = event.event.id;
+
         this.eventId = event.event.id;
+
+        let eventTitle = event.event.title;
         
         // let calEvent = eventClickInfo.event;
         // console.log(calEvent);
@@ -163,15 +187,7 @@ export class FrmSedutaSegrComponent implements OnInit, AfterViewInit {
 
       //   let events = this.events;
 
-      //   // console.log(events.findIndex(event));
-
-      //   events.forEach((element, index, array) => {
-      //     // console.log(element.x); // 100, 200, 300
-      //     // console.log(index); // 0, 1, 2
-      //     // console.log(array); // same myArray object 3 times
-      //     // console.log(array);
-      //     indexOfEvents.push(index);
-      // });
+      // console.log(events.findIndex(event));
         
       // console.log(indexOfEvents);
       // console.log(event.title);
@@ -186,41 +202,21 @@ export class FrmSedutaSegrComponent implements OnInit, AfterViewInit {
 
         this.eventTitleToBeChanged = event.event.title
 
-        let getEvent = this.events.filter(el => el.title === event.event.title)
+        // ('updateEvent', event)
+
+        let getEvent = this.events.filter(el => el.id === event.event.id)
         console.log(getEvent);
 
 
-
-        // let eventId = this.events.filter(el => el.id === event.event.id)
-        // console.log(eventId);
-
-        // if(getEvent) {
-        //   event.setProp("title", getEvent)
-        // }
-        
-        
-        // .map(el=> {
-        //   console.log();
-
-        //     // this.eventTitleToBeChanged = this.calendar.events[4].title
-        //     this.eventTitleToBeChanged = event.event.title
-        //     // this.eventTitleToBeChanged = this.calendar.events.title[event]
+        // const oldEvent = this.events.findIndex( e => e.id === event.event.id);
+        this.oldEventIndex = this.events.findIndex( e => e.id === event.event.id);
+        // this.oldEventData = this.events[this.oldEventIndex];
 
 
-        // })
+        // const oldEvent = this.events.findIndex( e => e.id === event.event.id);
 
-        
 
-        // this.changeEvent = event.title;
-
-        
       },
-      // eventDrop: eventDropInfo => {
-      //   const { event } = eventDropInfo;
-
-      //   // console.log(event.title);
-        
-      // },
       eventAfterAllRender: this.colorEvents(),
       customButtons: {
         addAppointmentButton: {
@@ -236,13 +232,6 @@ export class FrmSedutaSegrComponent implements OnInit, AfterViewInit {
     };
 
   }
-
-
-  // someMethod() {
-  //   let calendarApi = this.calendar.getCalendar();
-  //   calendarApi.next();
-  // }
-
 
 
   colorEvents() {
@@ -310,7 +299,9 @@ export class FrmSedutaSegrComponent implements OnInit, AfterViewInit {
   addButtonAppoitnment() {
 
     let start = this.datePipe.transform(this.dateStartFromButton, 'yyyy-MM-dd');
-    let today = this.datePipe.transform(new Date(), 'yyyy-MM-dd')
+    let today = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
+    let newButtonId = this.events.slice(-1)[0].id;
+
 
     this.displayAddAppointment = !this.displayAddAppointment;
 
@@ -318,6 +309,7 @@ export class FrmSedutaSegrComponent implements OnInit, AfterViewInit {
       alert('Cannot add appointment to this date.');
     } else {
       this.events = [...this.events, {
+        id: newButtonId +1,
         title: this.appointment,
         date: this.dateStartFromButton
       }]
@@ -352,6 +344,12 @@ export class FrmSedutaSegrComponent implements OnInit, AfterViewInit {
 
     let daysLimitBool = false;
 
+    let newId = this.events.slice(-1)[0].id;
+    console.log(newId);
+    
+    // console.log(newId);
+    
+
     this.daysLimit.map(el => {
       let testDate = this.datePipe.transform(el, "yyyy-MM-dd");
       if (this.dateStart === testDate) {
@@ -365,7 +363,7 @@ export class FrmSedutaSegrComponent implements OnInit, AfterViewInit {
       this.totalAmountOfEvents = true;
     } else {
       this.events = [...this.events, {
-        // id: this.id,
+        id: newId + 1,
         title: this.appointment,
         date: this.dateStart,
       }]
@@ -379,27 +377,25 @@ export class FrmSedutaSegrComponent implements OnInit, AfterViewInit {
 
   }
 
-  updateAppointment() {
 
-    // if(!this.eventId) {
-    //   this.events = [...this.events, {
-    //     title: this.appointment,
-    //     date: this.dateStart
-    //   }]
-    // } else {
-    //   this.events = [...this.events, {
-    //     // title: this.,
-    //   }]
-    // }
+  updateEvent() {
+
+    console.log(this.oldEventIndex + 1);
+    
+    // this.oldEventData
+
+      this.events[this.oldEventIndex].title = this.eventTitleToBeChanged;
+      this.events = [...this.events];
 
 
+      return this.updateEventModal = false;
 
   }
-
 
   cancelAppointment() {
     this.displayAddAppointment = false;
     this.display = false;
+    this.updateEventModal = false;
   }
 
   ngAfterViewInit() {

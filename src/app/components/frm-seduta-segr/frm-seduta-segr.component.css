@@ -1,5 +1,14 @@
-/* .fc .fc-view-container td.fc-widget-content {
-    background: #ffffff;
+:host ::ng-deep .fc .fc-view-container td.fc-widget-content {
+    /* background: #ffffff; */
     border: 1px solid #dee2e6;
     color: #495057;
-} */
+}
+
+:host ::ng-deep .fc-unthemed td.fc-today {
+    background: #fcf8e3 !important;
+}
+
+:host ::ng-deep .fc-past {
+    opacity: .3 !important;
+}
+
