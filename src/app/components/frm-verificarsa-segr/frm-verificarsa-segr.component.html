@@ -9,14 +9,66 @@
 
     <div class="border-1 h-full w-9 mb-6">
 
-        <div class="flex justify-content-evenly m-6">
+        <div class="flex justify-content-evenly">
+
+        <!-- <div class="flex ml-8 px-4"> -->
+            <div class="m-4">
+                <div class="mt-2 py-4">
+                    <label for="" style="font-family: sans-serif;">RSA</label>
+                </div>
+                <div class="mt-2 py-4">
+                    <label for="" style="font-family: sans-serif;">Data Inizio </label>
+                </div>
+            </div>
+            <div class="m-4">
+
+                <div class="mt-4">
+                    <input class="w-12" pInputText type="text">
+                </div>
+                <div class="mt-4">
+                    <!-- <div class="mr-8"> -->
+                    <p-calendar [showIcon]="true" inputId="basic"></p-calendar>
+                    <!-- </div> -->
+                </div>
+                <div class="mt-4 ml-8">
+                    <buttton class="ml-8" pButton>Ricerca</buttton>
+                </div>
+            </div>
+        <!-- </div> -->
+
+        <!-- <div class="flex"> -->
+            <div class="m-4">
+                <div class="mt-2 py-4">
+                    <label for="" style="font-family: sans-serif;">Tipo Ricovero</label>
+                </div>
+                <div class="mt-2 py-4">
+                    <label for="" style="font-family: sans-serif;">Data Fine </label>
+                </div>
+            </div>
+            <div class="m-4">
+
+                <div class="mt-4">
+                    <input class="w-12" pInputText type="text">
+                </div>
+                <div class="mt-4">
+                    <!-- <div class="mr-8"> -->
+                    <p-calendar [showIcon]="true" inputId="basic"></p-calendar>
+                    <!-- </div> -->
+                </div>
+                <div class="mt-4 ml-8">
+                    <buttton class="ml-8" pButton>Nuova Ricerca</buttton>
+                </div>
+            </div>
+        <!-- </div> -->
+    </div>
+
+        <!-- <div class="flex justify-content-evenly m-6">
             <div class="flex mr-4">
                 <label class="m-2" for="" style="font-family: sans-serif;">RSA</label>
                 <div>
                     <input class="w-12" pInputText type="text">
                 </div>
             </div>
-            
             <div class="mr-8">
                 <label class="m-4" for="" style="font-family: sans-serif;">Tipo Ricovero</label>
                 <input pInputText type="text">
@@ -34,7 +86,6 @@
             </div>
         </div>
 
-
         <div class="flex justify-content-evenly m-4">
 
             <div class="m-4">
@@ -44,12 +95,10 @@
                 <buttton pButton>Nuova Ricerca</buttton>
             </div>
 
-
-        </div>
+        </div> -->
 
     </div>
 </div>
-
 
 <div class="flex justify-content-center mb-6">
     <div class="border-1 w-9 h-10rem">
@@ -60,22 +109,26 @@
 
 <div class="flex justify-content-center mb-6">
     <div class="border-1 w-9 h-20rem">
-        <div class="flex justify-content-evenly">
-            <div>
-                <p-checkbox class="px-4 mt-4" name="groupname" value="val1"></p-checkbox>
-                <label class="" for="" style="font-family: sans-serif;">Si</label>
-            </div>
-            <div>
-                <p-checkbox class="px-4 mt-4" name="groupname" value="val1"></p-checkbox>
-                <label class="" for="" style="font-family: sans-serif;">No</label>
+        <div class="flex justify-content-start">
+            <div class="flex ml-8 mt-6 px-8">
+                <div class="ml-8">
+                    <p-checkbox class="px-6 mt-4" name="groupname" value="val1"></p-checkbox>
+                    <label class="" for="" style="font-family: sans-serif;">Si</label>
+                </div>
+                <div class="ml-8">
+                    <p-checkbox class="px-4 mt-4" name="groupname" value="val1"></p-checkbox>
+                    <label class="" for="" style="font-family: sans-serif;">No</label>
+                </div>
             </div>
         </div>
 
-        <div class="flex justify-content-evenly">
-            <h1 class="py-4">RSA</h1>
-            <p-dropdown class="mt-4 px-8 py-4" [options]="types" optionLabel="name"></p-dropdown>
-            <div class="mt-4 py-4">
-                <button pButton pRipple type="button"><i class="pi pi-plus"></i></button>
+        <div class="flex justify-content-start">
+            <div class="flex ml-8 mt-4 px-8">
+                <h1 class="py-4">RSA</h1>
+                <p-dropdown class="mt-4 px-8 py-4" [options]="types" optionLabel="name"></p-dropdown>
+                <div class="mt-4 py-4">
+                    <button pButton pRipple type="button"><i class="pi pi-plus"></i></button>
+                </div>
             </div>
         </div>
 
@@ -106,9 +159,6 @@
     </div>
 
 </div>
-
-
-
 
 <div class="flex justify-content-center">
     <div class="border-1 h-10rem w-9">

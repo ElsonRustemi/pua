@@ -33,6 +33,7 @@ interface IEvents {
 export class FrmSedutaSegrComponent implements OnInit, AfterViewInit {
 
   date = new Date();
+  date8: Date;
 
   maxEventsPerDay = 10;
   inBetweenEventPerDay = this.maxEventsPerDay - 1;
@@ -132,6 +133,12 @@ export class FrmSedutaSegrComponent implements OnInit, AfterViewInit {
           dayMaxEventRows: 5
         }
       },
+      // eventTimeFormat: { // like '14:30:00'
+      //   hour: '2-digit',
+      //   minute: '2-digit',
+      //   allDay: false,
+      //   meridiem: false
+      // },
       dateClick: (e) => {
 
         let start = this.datePipe.transform(e.dateStr, 'yyyy-MM-dd');
@@ -148,11 +155,8 @@ export class FrmSedutaSegrComponent implements OnInit, AfterViewInit {
         }
 
       },
-      eventRender: function(date, cell) {
-
-        
-
-      },
+      // eventRender: function(date, cell) {
+      // },
       eventClick: (event, element, eventClickInfo) => {
         // console.log(element);
         
@@ -289,51 +293,59 @@ export class FrmSedutaSegrComponent implements OnInit, AfterViewInit {
 
   }
 
-
-
-
   // FF5349 color:red
   // 35A4FB color:blue
   // FFBF00 color:yellow
 
   addButtonAppoitnment() {
+    let daysLimitBool = false;
+
 
     let start = this.datePipe.transform(this.dateStartFromButton, 'yyyy-MM-dd');
     let today = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
     let newButtonId = this.events.slice(-1)[0].id;
 
 
+    // let test = this.events[this.events.length - 1];
+    // console.log(test);
+
     this.displayAddAppointment = !this.displayAddAppointment;
 
-    if (start < today) {
-      alert('Cannot add appointment to this date.');
-    } else {
-      this.events = [...this.events, {
-        id: newButtonId +1,
-        title: this.appointment,
-        date: this.dateStartFromButton
-      }]
-    }
-
-    // let daysLimitBool = false;
-
-    // this.daysLimit.map(el => {
-    //   let testDate = this.datePipe.transform(el, "yyyy-MM-dd");
-    //   if (this.dateStartFromButton === testDate) {
-    //     daysLimitBool = true;
-    //   }
-    // })
-
-
-    // if (daysLimitBool) {
-    //   alert("Reached total amount of events. Please select another date.");
+    // if (start < today) {
+    //   alert('Cannot add appointment to this date.');
     // } else {
     //   this.events = [...this.events, {
+    //     id: newButtonId + 1,
     //     title: this.appointment,
     //     date: this.dateStartFromButton
     //   }]
-    //   this.daysToDisable();
     // }
+
+    // let daysLimitBool = false;
+    console.log(this.dateStartFromButton);
+    
+
+    this.daysLimit.map(el => {
+      let testDate = this.datePipe.transform(el, "yyyy-MM-dd");
+      console.log(testDate);
+      
+      if (start === testDate) {
+        daysLimitBool = true;
+      }
+    })
+
+
+    if (daysLimitBool) {
+      // alert("Reached total amount of events. Please select another date.");
+      this.totalAmountOfEvents = true;
+    } else {
+      this.events = [...this.events, {
+        id: newButtonId + 1,
+        title: this.appointment,
+        date: this.dateStartFromButton
+      }]
+      this.daysToDisable();
+    }
 
 
     return this.appointment = "", this.dateStartFromButton = "", this.colorEvents();
@@ -366,6 +378,8 @@ export class FrmSedutaSegrComponent implements OnInit, AfterViewInit {
         id: newId + 1,
         title: this.appointment,
         date: this.dateStart,
+        // time: this.date8,
+        // allDay: false
       }]
       this.daysToDisable();
     }

@@ -63,35 +63,36 @@
 </div>
 
 
-<label></label>
-<label></label>
+<!-- <label></label>
+<label></label> -->
 
 
 
 <p-dialog header="Fissa un nuovo appuntamento" [contentStyle]="{'overflow': 'visible'}" [maximizable]="true"
     [(visible)]="displayAddAppointment" modal="modal">
     <input class="ml-2" pInputText type="text" [(ngModel)]="appointment">
-    <p-calendar class="ml-2" [showIcon]="true" [(ngModel)]="dateStartFromButton" [disabledDays]="daysLimit"
+    <p-calendar class="p-field ml-2" [showIcon]="true" [(ngModel)]="dateStartFromButton" [disabledDays]="daysLimit"
         [readonlyInput]="true" [minDate]="minimumDate" showTime="true" inputId="basic"></p-calendar>
     <!-- [disabledDates]="invalidDates" -->
     <!-- <p-calendar [inline]="true" [minDate]="minimumDate" [(ngModel)]="dateStartFromButton" showTime="true" tabindex="0"></p-calendar> -->
     <button class="ml-2" pButton label="Aggiungi" type="submit" (click)="addButtonAppoitnment()"></button>
     <!-- <button class="ml-2 p-button-secondary" pButton label="Modifica" type="submit"></button> -->
-    <button class="ml-2 p-button-danger" pButton label="Anulla" type="submit" (click)="cancelAppointment()"></button>
+    <button class="ml-2 p-button-danger" pButton label=" Annulla " type="submit" (click)="cancelAppointment()"> </button>
 </p-dialog>
 
 
-<p-dialog header="Fissa un nuovo appuntamento" [(visible)]="display" modal="modal">
+<p-dialog header="Fissa un nuovo appuntamento" [contentStyle]="{'overflow': 'visible'}" [(visible)]="display" modal="modal">
     <input pInputText class="mt-2" type="text" [(ngModel)]="appointment">
+    <p-calendar class="ml-2" [(ngModel)]="date8" [timeOnly]="true" inputId="timeonly"></p-calendar>
     <button class="ml-2" pButton label="Aggiungi" type="submit" (click)="addAppointment()"></button>
     <!-- <button class="ml-2 p-button-secondary" pButton label="Modifica" type="submit"></button> -->
-    <button class="ml-2 p-button-danger" pButton label="Anulla" type="submit" (click)="cancelAppointment()"></button>
+    <button class="ml-2 p-button-danger" pButton label=" Annulla " type="submit" (click)="cancelAppointment()"> </button>
 </p-dialog>
 
 <p-dialog header="Aggiorna Appuntamento" [(visible)]="updateEventModal" modal="modal">
     <input pInputText type="text" [(ngModel)]="eventTitleToBeChanged">
     <button class="ml-2 p-button-secondary" pButton label="Modifica" type="submit" (click)="updateEvent()"></button>
-    <button class="ml-2 p-button-danger" pButton label="Anulla" type="submit" (click)="cancelAppointment()"></button>
+    <button class="ml-2 p-button-danger" pButton label=" Annulla " type="submit" (click)="cancelAppointment()"> </button>
 </p-dialog>
 
 
