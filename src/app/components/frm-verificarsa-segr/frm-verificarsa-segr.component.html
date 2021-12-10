@@ -1,188 +1,128 @@
 <app-home></app-home>
 
 <div class="flex justify-content-center">
-    <div class="card w-10 mt-4">
-        <label style="font-family: sans-serif;">Disponibilita RSA</label>
-    </div>
+  <div class="card w-10 mt-4">
+    <label style="font-family: sans-serif;">Disponibilita RSA</label>
+  </div>
 </div>
 <div class="flex justify-content-center">
 
-    <div class="border-1 h-full w-10 mb-6">
+  <div class="border-1 h-full w-10 mb-6">
 
-        <div class="flex justify-content-evenly">
+    <div class="flex justify-content-evenly">
 
-        <!-- <div class="flex ml-8 px-4"> -->
-            <div class="m-4">
-                <div class="mt-2 py-4">
-                    <label for="" style="font-family: sans-serif;">RSA</label>
-                </div>
-                <div class="mt-2 py-4">
-                    <label for="" style="font-family: sans-serif;">Data Inizio </label>
-                </div>
-            </div>
-            <div class="m-4">
+      <div class="m-4">
+        <div class="mt-2 py-4">
+          <label for="" style="font-family: sans-serif;">RSA</label>
+        </div>
+        <div class="mt-2 py-4">
+          <label for="" style="font-family: sans-serif;">Data Inizio </label>
+        </div>
+      </div>
+      <div class="m-4">
 
-                <div class="mt-4">
-                    <input class="w-12" pInputText type="text">
-                </div>
-                <div class="mt-4">
-                    <!-- <div class="mr-8"> -->
-                    <p-calendar [showIcon]="true" inputId="basic"></p-calendar>
-                    <!-- </div> -->
-                </div>
-                <div class="mt-4 ml-8">
-                    <buttton class="ml-8" pButton>Ricerca</buttton>
-                </div>
-            </div>
-        <!-- </div> -->
+        <div class="mt-4">
+          <input class="w-15rem" pInputText type="text">
+        </div>
+        <div class="mt-4">
 
-        <!-- <div class="flex"> -->
-            <div class="m-4">
-                <div class="mt-2 py-4">
-                    <label for="" style="font-family: sans-serif;">Tipo Ricovero</label>
-                </div>
-                <div class="mt-2 py-4">
-                    <label for="" style="font-family: sans-serif;">Data Fine </label>
-                </div>
-            </div>
-            <div class="m-4">
+          <p-calendar [showIcon]="true" inputId="basic"></p-calendar>
 
-                <div class="mt-4">
-                    <input class="w-12" pInputText type="text">
-                </div>
-                <div class="mt-4">
-                    <!-- <div class="mr-8"> -->
-                    <p-calendar [showIcon]="true" inputId="basic"></p-calendar>
-                    <!-- </div> -->
-                </div>
-                <div class="mt-4 ml-8">
-                    <buttton class="ml-8" pButton>Nuova Ricerca</buttton>
-                </div>
-            </div>
-        <!-- </div> -->
+        </div>
+        <div class="mt-4 ml-8">
+          <buttton class="ml-6 px-4" pButton>Ricerca</buttton>
+        </div>
+      </div>
+
+      <div class="m-4">
+        <div class="mt-2 py-4">
+          <label for="" style="font-family: sans-serif;">Tipo Ricovero</label>
+        </div>
+        <div class="mt-2 py-4">
+          <label for="" style="font-family: sans-serif;">Data Fine </label>
+        </div>
+      </div>
+      <div class="m-4">
+
+        <div class="mt-4">
+          <input class="w-15rem" pInputText type="text">
+        </div>
+        <div class="mt-4">
+
+          <p-calendar [showIcon]="true" inputId="basic"></p-calendar>
+
+        </div>
+        <div class="mt-4 ml-6">
+          <buttton class="ml-6" pButton>Nuova Ricerca</buttton>
+        </div>
+      </div>
+
     </div>
 
-        <!-- <div class="flex justify-content-evenly m-6">
-            <div class="flex mr-4">
-                <label class="m-2" for="" style="font-family: sans-serif;">RSA</label>
-                <div>
-                    <input class="w-12" pInputText type="text">
-                </div>
-            </div>
-            <div class="mr-8">
-                <label class="m-4" for="" style="font-family: sans-serif;">Tipo Ricovero</label>
-                <input pInputText type="text">
-            </div>
-        </div>
-
-        <div class="flex justify-content-evenly m-6">
-            <div class="mr-8">
-                <label class="m-2" for="" style="font-family: sans-serif;">Data Inizio </label>
-                <p-calendar [showIcon]="true" inputId="basic"></p-calendar>
-            </div>
-            <div class="mr-8">
-                <label class="m-2" for="" style="font-family: sans-serif;">Data Fine</label>
-                <p-calendar [showIcon]="true"  inputId="basic"></p-calendar>
-            </div>
-        </div>
-
-        <div class="flex justify-content-evenly m-4">
-
-            <div class="m-4">
-                <buttton pButton>Ricerca</buttton>
-            </div>
-            <div class="m-4">
-                <buttton pButton>Nuova Ricerca</buttton>
-            </div>
-
-        </div> -->
-
-    </div>
+  </div>
 </div>
 
 <div class="flex justify-content-center mb-6">
-    <div class="border-1 w-10 h-10rem">
-        <p-checkbox class="px-4 mt-4" name="groupname" value="val1"></p-checkbox>
-        <label class="" for="" style="font-family: sans-serif;">Tipologia posto letto: Comune</label>
-    </div>
+  <div class="border-1 w-10 h-10rem">
+    <p-checkbox class="px-4 mt-4" name="groupname" value="val1"></p-checkbox>
+    <label class="" for="" style="font-family: sans-serif;">Tipologia posto letto: Comune</label>
+  </div>
 </div>
 
 <div class="flex justify-content-center mb-6">
-    <div class="border-1 w-10 h-20rem">
-        <div class="flex justify-content-start">
-            <div class="flex ml-8 mt-6 px-8">
-                <div class="ml-8">
-                    <p-checkbox class="px-6 mt-4" name="groupname" value="val1"></p-checkbox>
-                    <label class="" for="" style="font-family: sans-serif;">Si</label>
-                </div>
-                <div class="ml-8">
-                    <p-checkbox class="px-4 mt-4" name="groupname" value="val1"></p-checkbox>
-                    <label class="" for="" style="font-family: sans-serif;">No</label>
-                </div>
-            </div>
+  <div class="border-1 w-10 h-20rem">
+    <div class="grid justify-content-start mt-4 ml-8 px-5">
+      <!-- <div class="flex ml-8 mt-6 px-8"> -->
+        <div class="ml-8">
+          <p-checkbox class="px-4 mt-4" name="groupname" value="val1"></p-checkbox>
+          <label class="" for="" style="font-family: sans-serif;">Si</label>
         </div>
-
-        <div class="flex justify-content-start">
-            <div class="flex ml-8 mt-4 px-8">
-                <h1 class="py-4">RSA</h1>
-                <p-dropdown class="mt-4 px-8 py-4" [options]="types" optionLabel="name"></p-dropdown>
-                <div class="mt-4 py-4">
-                    <button pButton pRipple type="button"><i class="pi pi-plus"></i></button>
-                </div>
-            </div>
+        <div class="ml-8">
+          <p-checkbox class="px-4 mt-4" name="groupname" value="val1"></p-checkbox>
+          <label class="" for="" style="font-family: sans-serif;">No</label>
         </div>
-
-        <!-- <div class="py-4">
-            <p-treeTable [value]="files" [columns]="cols">
-                <ng-template pTemplate="header" let-columns>
-                    <tr>
-                        <th *ngFor="let col of columns">
-                            {{col.header}}
-                        </th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-                    <tr>
-                        <td *ngFor="let col of columns; let i = index">
-                            <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
-                            {{rowData[col.field]}}
-                        </td>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="summary">
-                    <div class="flex justify-content-end">
-                    </div>
-                </ng-template>
-            </p-treeTable>
-        </div> -->
-
+      <!-- </div> -->
     </div>
+
+    <div class="grid justify-content-start ml-8">
+      <!-- <div class="flex ml-8 mt-4 px-8"> -->
+        <div class="flex">
+          <h1 class="py-4">RSA</h1>
+        </div>
+        <div class="mt-4 py-4">
+          <p-dropdown class="mt-4 px-8 py-4" [options]="types" optionLabel="name"></p-dropdown>
+          <button pButton pRipple type="button"><i class="pi pi-plus"></i></button>
+        </div>
+      <!-- </div> -->
+    </div>
+
+  </div>
 
 </div>
 
 <div class="flex justify-content-center">
-    <div class="border-1 h-10rem w-10">
-        <div class="flex justify-content-evenly mt-6">
-            <buttton pButton>Salva Bozza</buttton>
-            <buttton pButton>Modifica</buttton>
-        </div>
-
+  <div class="border-1 h-10rem w-10">
+    <div class="flex justify-content-evenly mt-6">
+      <buttton pButton>Salva Bozza</buttton>
+      <buttton pButton>Modifica</buttton>
     </div>
+
+  </div>
 </div>
 
 <div class="flex justify-content-center py-4">
-    <div class="border-1 h-10rem w-10">
-        <div class="flex justify-content-center mt-6">
-            <buttton pButton>Invia</buttton>
-        </div>
-
+  <div class="border-1 h-10rem w-10">
+    <div class="flex justify-content-center mt-6">
+      <buttton pButton>Invia</buttton>
     </div>
+
+  </div>
 </div>
 
 <div class="flex justify-content-center py-4">
-    <div class="border-1 h-10rem w-10">
-        <div class="flex justify-content-center mt-6">
-            <h1 style="font-family: sans-serif;">Footer</h1>
-        </div>
+  <div class="border-1 h-10rem w-10">
+    <div class="flex justify-content-center mt-6">
+      <h1 style="font-family: sans-serif;">Footer</h1>
     </div>
+  </div>
 </div>

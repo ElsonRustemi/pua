@@ -24,6 +24,10 @@ export class FrmRicevutapagamentoAspComponent implements OnInit {
   files: TreeNode[];
   uploadedFiles: any[] = [];
 
+  selectedPresence: string[] = [];
+
+  checked: boolean = false;
+
   cols: any[];
   types: Type[];
 
@@ -43,7 +47,8 @@ export class FrmRicevutapagamentoAspComponent implements OnInit {
   ngOnInit(): void {
 
 
-    this.nodeService.getFilesystem().then(files => this.files = files);
+    // To be checked
+    // this.nodeService.getFilesystem().then(files => this.files = files);
 
     this.cols = [
       { field: 'document', header: 'Documento Allegato' },
@@ -59,7 +64,9 @@ export class FrmRicevutapagamentoAspComponent implements OnInit {
 
     }
 
-    this.messageService.add({ severity: 'info', summary: 'File Uploaded', detail: '' });
+    this.messageService.add({
+      severity: 'info', summary: 'File Uploaded', detail: ''
+    });
   }
 
 

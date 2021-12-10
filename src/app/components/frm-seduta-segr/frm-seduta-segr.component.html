@@ -4,55 +4,23 @@
     <h1 style="font-family: sans-serif;">Scelta Seduta Calendarizzata</h1>
 </div>
 
-
-<!-- <full-calendar [options]="options"></full-calendar> -->
 <div class="flex justify-content-center">
     <div class="border-1 w-10 h-full" style="font-family: sans-serif;">
-        <div class="flex ml-6 mt-4">
-            <label for="">Legenda</label>
+        <div class="grid ml-4 mt-4">
+        <div class="p-text-normal">Legenda</div>
         </div>
-        <!-- <div class="flex m-4">
-            <label class="px-2" for="" style="font-family: sans-serif;"> Appuntamenti 1 - 5 </label>
-            <div class="border-1 w-8rem h-1rem ml-2" [ngStyle]="{backgroundColor:'var(--green-500)'}"></div>
-        </div>
-        <div class="flex m-4">
-            <label class="px-2" for="" style="font-family: sans-serif;"> Appuntamenti 6 - 9 </label>
-            <div class="border-1 w-8rem h-1rem ml-2" [ngStyle]="{backgroundColor:'var(--yellow-300)'}"></div>
-        </div>
-        <div class="flex m-4">
-            <label class="px-2" for="" style="font-family: sans-serif;">Appuntamenti 10</label>
-            <div class="border-1 w-8rem h-1rem ml-4" [ngStyle]="{backgroundColor:'var(--pink-400)'}"></div>
-        </div> -->
         <div class="flex">
-
             <div class="m-4">
-                <div>
-                    <label class="px-2 " for="" style="font-family: sans-serif;"> Appuntamenti 1 - {{minEventPerDay}} </label>
-                </div>
-                <div class="mt-2">
-                    <label class="px-2" for="" style="font-family: sans-serif;"> Appuntamenti {{maxEventsPerDay - 4}} - {{inBetweenEventPerDay}} </label>
-                </div>
-                <div class="mt-2">
-                    <label class="px-2" for="" style="font-family: sans-serif;">Appuntamenti {{maxEventsPerDay}}</label>
-                </div>
+            <div class="p-text-normal">Appuntamenti 1 - {{minEventPerDay}}</div>
+            <div class="p-text-normal mt-2">Appuntamenti {{maxEventsPerDay - 4}} - {{inBetweenEventPerDay}}</div>
+            <div class="p-text-normal mt-2">Appuntamenti {{maxEventsPerDay}}</div>
             </div>
             <div class="m-4">
                 <div class="border-1 w-8rem h-1rem ml-2" [ngStyle]="{backgroundColor:'var(--green-500)'}"></div>
-                <div class="border-1 w-8rem h-1rem ml-2 mt-2" [ngStyle]="{backgroundColor:'var(--yellow-300)'}"></div>
-                <div class="border-1 w-8rem h-1rem ml-2 mt-2" [ngStyle]="{backgroundColor:'var(--pink-400)'}"></div>
+                <div class="border-1 w-8rem h-1rem ml-2 mt-2 py-2" [ngStyle]="{backgroundColor:'var(--yellow-300)'}"></div>
+                <div class="border-1 w-8rem h-1rem ml-2 mt-2 py-2" [ngStyle]="{backgroundColor:'var(--pink-400)'}"></div>
             </div>
         </div>
-
-        <!-- <div>
-            <label for="">6 - 9 Appuntamenti</label>
-            <div class="border-1 h-1rem" [ngStyle]="{backgroundColor:'var(--yellow-300)'}"></div>
-
-        </div>
-        <div>
-            <label for="">Riaggiunto il numero massimo di appuntamenti</label>
-            <div class="border-1 h-1rem" [ngStyle]="{backgroundColor:'var(--pink-400 )'}"></div>
-
-        </div> -->
     </div>
 </div>
 
@@ -62,38 +30,29 @@
     </div>
 </div>
 
-
-<!-- <label></label>
-<label></label> -->
-
-
-
-<p-dialog header="Fissa un nuovo appuntamento" [contentStyle]="{'overflow': 'visible'}" [maximizable]="true"
+<p-dialog header="Aggiungi un appuntamento" [contentStyle]="{'overflow': 'visible'}" [maximizable]="true"
     [(visible)]="displayAddAppointment" modal="modal">
-    <input class="ml-2" pInputText type="text" [(ngModel)]="appointment">
+    <input class="ml-2 w-13rem" pInputText type="text" [(ngModel)]="appointment" pTooltip="Inserisci un appuntamento" tooltipPosition="top" placeholder="Inserisci un appuntamento">
     <p-calendar class="p-field ml-2" [showIcon]="true" [(ngModel)]="dateStartFromButton" [disabledDays]="daysLimit"
         [readonlyInput]="true" [minDate]="minimumDate" showTime="true" inputId="basic"></p-calendar>
-    <!-- [disabledDates]="invalidDates" -->
-    <!-- <p-calendar [inline]="true" [minDate]="minimumDate" [(ngModel)]="dateStartFromButton" showTime="true" tabindex="0"></p-calendar> -->
     <button class="ml-2" pButton label="Aggiungi" type="submit" (click)="addButtonAppoitnment()"></button>
-    <!-- <button class="ml-2 p-button-secondary" pButton label="Modifica" type="submit"></button> -->
-    <button class="ml-2 p-button-danger" pButton label=" Annulla " type="submit" (click)="cancelAppointment()"> </button>
+    <button class="ml-2 p-button-danger" pButton label=" Annulla " type="submit" (click)="cancelAppointment()"></button>
 </p-dialog>
 
 
-<p-dialog header="Fissa un nuovo appuntamento" [contentStyle]="{'overflow': 'visible'}" [(visible)]="display" modal="modal">
-    <input pInputText class="mt-2" type="text" [(ngModel)]="appointment">
-    <!-- <input pInputText class="mt-2" type="text" [(ngModel)]="dateFromCell"> -->
+<p-dialog header="Aggiungi un appuntamento" [contentStyle]="{'overflow': 'visible'}" [(visible)]="display" modal="modal">
+    <input pInputText class="mt-2 w-13rem" type="text" [(ngModel)]="appointment" pTooltip="Inserisci un appuntamento" tooltipPosition="top" placeholder="Inserisci un appuntamento">
     <p-calendar class="p-field ml-2" [showIcon]="true" [(ngModel)]="dateFromCell" [disabledDays]="daysLimit"
         [readonlyInput]="true" [minDate]="minimumDate" showTime="true" inputId="basic"></p-calendar>
-    <!-- <p-calendar class="ml-2" [(ngModel)]="date8" [timeOnly]="true" inputId="timeonly"></p-calendar> -->
+        <!-- <input pInputText [(ngModel)]="dateFromCell" type="text"> -->
     <button class="ml-2" pButton label="Aggiungi" type="submit" (click)="addAppointment()"></button>
-    <!-- <button class="ml-2 p-button-secondary" pButton label="Modifica" type="submit"></button> -->
     <button class="ml-2 p-button-danger" pButton label=" Annulla " type="submit" (click)="cancelAppointment()"> </button>
 </p-dialog>
 
-<p-dialog header="Aggiorna Appuntamento" [(visible)]="updateEventModal" modal="modal">
+<p-dialog header="Aggiorna Appuntamento" [contentStyle]="{'overflow': 'visible'}" [(visible)]="updateEventModal" modal="modal">
     <input pInputText type="text" [(ngModel)]="eventTitleToBeChanged">
+    <p-calendar class="p-field ml-2" [showIcon]="true" [(ngModel)]="dateHourToBeChanged" [disabledDays]="daysLimit"
+        [readonlyInput]="true" [minDate]="minimumDate" showTime="true" inputId="basic"></p-calendar>
     <button class="ml-2 p-button-secondary" pButton label="Modifica" type="submit" (click)="updateEvent()"></button>
     <button class="ml-2 p-button-danger" pButton label=" Annulla " type="submit" (click)="cancelAppointment()"> </button>
 </p-dialog>
@@ -103,7 +62,5 @@
     modal="modal"></p-dialog>
 <p-dialog header="Data non valida. Date valide sono data attuale e le date che vengono dopo la data attuale."
     [(visible)]="disableDatesBeforeCurrentDate" modal="modal"></p-dialog>
-
-
 
 <app-footer></app-footer>

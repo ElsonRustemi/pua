@@ -21,6 +21,9 @@ import { MessageService } from 'primeng/api';
 import {TableModule} from 'primeng/table';
 import {DialogModule} from 'primeng/dialog';
 import { FormsModule } from '@angular/forms';
+import {TooltipModule} from 'primeng/tooltip';
+
+
 
 
 
@@ -71,8 +74,9 @@ import { InitialdataComponent } from './components/initialdata/initialdata.compo
     AppRoutingModule,
     TableModule,
     DialogModule,
-    FormsModule
-    
+    FormsModule,
+    TooltipModule
+
   ],
   providers: [NodeService, EventService, MessageService],
   bootstrap: [AppComponent]

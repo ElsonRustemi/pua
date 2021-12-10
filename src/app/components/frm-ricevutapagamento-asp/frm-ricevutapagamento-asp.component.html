@@ -1,103 +1,104 @@
 <app-home></app-home>
 
-<div class="flex justify-content-center">
-    <div class="border-1 w-10 h-full m-4">
-        <div class="flex">
-            <label for="" class="mt-4 ml-6 px-2">Ricevuta</label>
-            <div class="flex justify-content-evenly">
-                <p-radioButton class="m-4" name="value" value="val1" inputId="val1"></p-radioButton>
-                <label class="mt-4" for="val1">Presente</label>
-            </div>
-
-            <div class="flex justify-content-evenly">
-                <p-radioButton class="m-4" name="value" value="val2" inputId="val2"></p-radioButton>
-                <label class="mt-4" for="val2">Non Presente</label>
-            </div>
-
-        </div>
-
-        <div class="m-4 flex justify-content-around">
-            <label class="py-2" for="">Acconto</label>
-            <div>
-                <input pInputText type="text" name="" id="">
-            </div>
-            <label class="py-2" for="">Data</label>
-            <div>
-                <p-calendar [showIcon]="true" inputId="basic"></p-calendar>
-            </div>
-            <label class="py-2" for="">Nr. Rif.</label>
-            <div>
-                <input pInputText type="text">
-            </div>
+      <!-- <label for="" class="mt-4 ml-8">Ricevuta</label> -->
 
 
+<div class="grid justify-content-around">
+
+  <div class="border-1 w-10 h-full m-4">
+    <div class="flex">
+      <div class="p-text-normal mt-4 ml-8 px-1">Ricevuta</div>
+      <div class="flex justify-content-evenly mt-4 ml-2">
+        <div class="ml-8 px-6">
+          <p-checkbox [(ngModel)]="selectedPresence" value="Presente"></p-checkbox>
+          <label class="mt-2 ml-4" for="binary">Presente</label>
         </div>
 
         <div>
-            <label for="" class="m-4 px-6">Allega Ricevuta Pagamento</label>
-            <div class="flex justify-content-center">
-                <div class="border-1 w-11 h-full m-4 px-4">
-                    <div class="card m-4">
-                        <div class="flex justify-content-between">
-                            <div>
-                                <label for="" class="m-8">Tipologia</label>
-                                <p-dropdown class="m-8" [options]="types" optionLabel="name"></p-dropdown>
-                            </div>
-
-                            <div class="card">
-
-                            </div>
-
-                            <p-fileUpload mode="basic" name="demo[]" auto="true" customUpload="true" accept="image/*"
-                                maxFileSize="1000000" (uploadHandler)="myUploader($event)"></p-fileUpload>
-                        </div>
-                    </div>
-
-                    <!-- Table -->
-                    <div class="py-4">
-
-                        <p-table [value]="uploadedFiles">
-                            <ng-template pTemplate="header">
-                                <tr>
-                                    <th>Documento Allegato</th>
-                                    <th>Azioni</th>
-                                </tr>
-                            </ng-template>
-                            <ng-template pTemplate="body" let-product class="w-9">
-
-                                <tr class="flex justify-content-around">
-
-
-                                    <div class="mt-4">
-                                        <p>{{product.name}}</p>
-                                        <!--  <td>{{product.size}}</td> -->
-                                    </div>
-
-
-                                    <div class="flex relative left-100 px-4 py-4">
-                                        <div>
-                                            <p-button icon="pi pi-download"></p-button>
-                                        </div>
-                                        <th style="width: 8rem">
-                                            <p-button icon="pi pi-times"></p-button>
-                                        </th>
-                                    </div>
-
-                                </tr>
-
-                                <!-- <tr class="flex justify-content-center">
-
-                                </tr> -->
-
-                            </ng-template>
-                        </p-table>
-
-                    </div>
-
-                </div>
-            </div>
+          <p-checkbox class="ml-4" [(ngModel)]="selectedPresence" value="Non Presente"></p-checkbox>
+          <label class="mt-2 ml-4" for="binary">Non Presente</label>
         </div>
+      </div>
     </div>
+
+    <div class="grid justify-content-around m-4">
+      <label class="py-2" for="">Acconto</label>
+      <div>
+        <input pInputText type="text" name="" id="">
+      </div>
+      <label class="py-2" for="">Data</label>
+      <div>
+        <p-calendar [showIcon]="true" inputId="basic"></p-calendar>
+      </div>
+      <label class="py-2" for="">Nr. Rif.</label>
+      <div>
+        <input pInputText type="text">
+      </div>
+    </div>
+
+    <div>
+      <div class="p-text-normal ml-6 px-3">Allega Ricevuta Pagamento</div>
+      <!-- <label for="" class="m-4 px-6">Allega Ricevuta Pagamento</label> -->
+      <div class="grid justify-content-center">
+        <div class="border-1 w-11 h-full m-4 px-4">
+          <div class="card m-6">
+            <div class="grid justify-content-between">
+              <div class="p-text-normal">Tipologia</div>
+              <div>
+                <!-- <label for="" class="m-8">Tipologia</label> -->
+                <p-dropdown class="m-8" [options]="types" optionLabel="name"></p-dropdown>
+              </div>
+
+              <div class="card">
+
+              </div>
+
+              <p-fileUpload mode="basic" name="demo[]" auto="true" customUpload="true" accept="image/*"
+                maxFileSize="1000000" (uploadHandler)="myUploader($event)"></p-fileUpload>
+            </div>
+          </div>
+
+          <!-- Table -->
+          <div class="py-4">
+
+            <p-table [value]="uploadedFiles">
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>Documento Allegato</th>
+                  <th>Azioni</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-product class="w-9">
+
+                <tr class="flex justify-content-around">
+
+
+                  <div class="mt-4">
+                    <p>{{product.name}}</p>
+                    <!--  <td>{{product.size}}</td> -->
+                  </div>
+
+
+                  <div class="flex relative left-100 px-4 py-4">
+                    <div>
+                      <p-button icon="pi pi-download"></p-button>
+                    </div>
+                    <th style="width: 8rem">
+                      <p-button icon="pi pi-times"></p-button>
+                    </th>
+                  </div>
+
+                </tr>
+
+              </ng-template>
+            </p-table>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <app-footer></app-footer>

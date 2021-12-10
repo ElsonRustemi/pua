@@ -17,14 +17,6 @@ import { element } from 'protractor';
 import { time } from 'console';
 
 
-// interface IEvents {
-//   id: number;
-//   title: string;
-//   date: string;
-//   color: string;
-// }
-
-
 @Component({
   selector: 'app-frm-seduta-segr',
   templateUrl: './frm-seduta-segr.component.html',
@@ -55,18 +47,20 @@ export class FrmSedutaSegrComponent implements OnInit, AfterViewInit {
   id = "";
   eventId = "";
 
-  dateFromCell = "";
+  dateFromCell;
+  anotherDateFromCell;
   dateStartFromButton = "";
 
   displayAddAppointment: boolean;
   minimumDate = this.date;
 
-  // changeEvent = false;
   eventTitleToBeChanged = "";
   updateEventModal = false;
 
   totalAmountOfEvents: boolean = false;
   disableDatesBeforeCurrentDate: boolean = false;
+
+  dateHourToBeChanged = "";
 
 
   display: boolean = false;
@@ -76,7 +70,6 @@ export class FrmSedutaSegrComponent implements OnInit, AfterViewInit {
 
   oldEventIndex;
   testEventTitle;
-  // oldEventData;
 
   @ViewChild('calendar') calendar: FullCalendar;
   httpClient: any;
@@ -113,7 +106,6 @@ export class FrmSedutaSegrComponent implements OnInit, AfterViewInit {
     {id: "21", title: 'event 21', date: '2021-12-20T15:30:00+00:00', color: '' },
     {id: "22", title: 'event 22', date: '2021-12-20T16:30:00+00:00', color: '' },
 
-
     ]
 
 
@@ -121,16 +113,18 @@ export class FrmSedutaSegrComponent implements OnInit, AfterViewInit {
 
     this.options = {
       plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
+      // nextDayThreshold: '09:00',
       locale: itLocale,
       header: {
         left: 'prev,next, legend',
         center: 'title',
         right: 'addAppointmentButton'
       },
-      // timeZone: 'Europe/Paris',
-      slotLabelFormat: { hour: 'numeric', minute: '2-digit', omitZeroMinute: false, hour12: false },
+      // nextDayThreshold: "09:00",
+      // slotLabelFormat: { hour: 'numeric', minute: '2-digit', omitZeroMinute: false },
       initialDate: this.dateStart,
       eventLimit: true,
+      // businessHours: true,
       views: {
         timeGrid: {
           // eventLimit: 3,
@@ -140,93 +134,95 @@ export class FrmSedutaSegrComponent implements OnInit, AfterViewInit {
       eventTimeFormat: { // like '14:30:00'
         hour: '2-digit',
         minute: '2-digit',
-        hour12: false
-        // timeZoneName: 'short'
+        // second: '2-digit',
+        hour12: false,
+        allDay: false
       },
       dateClick: (e) => {
 
+        e.allDay = false;
+        console.log(e.dateEnd);
+        console.log(e.date.toLocaleDateString());
+
+
+
         let start = this.datePipe.transform(e.dateStr, 'yyyy-MM-dd');
         let today = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
-        this.dateFromCell = e.date;
-        console.log(e);
+
+        let anothersuperdupertest = this.datePipe.transform(e.dateStr.time, 'hh-mm-ss a')
+        console.log(anothersuperdupertest);
+
+        let superdateforever =
+
+
+        this.dateFromCell = new Date().setDate(e.dateStr);
+
+        console.log(typeof this.dateFromCell);
+
+        // this.dateFromCell = this.datePipe.transform(e.date, 'h:mm a');
+        // let anotherStart = this.datePipe.transform(this.dateFromCell, 'yyy-MM-dd');;
+        // console.log(anotherStart);
+
+
+
+        this.anotherDateFromCell = new Date().setDate(this.dateFromCell);
+        console.log(this.anotherDateFromCell);
+
+
+        // console.log(typeof e.date.dateStr);
+        // console.log(e.date.dateStr);
+        // console.log(typeof e.dateStr);
+        // console.log(typeof e.dateEnd);
+
+
+
+
+        // // this.dateFromCell = this.datePipe.transform(e.dateEnd, 'yyyy-MM-dd HH:mm:ss');
+        // let super_test: number = +e.dateStr;
+        // console.log(typeof super_test);
+        // console.log(super_test);
+
+
+        // // this.dateFromCell = super_test;
+        // let testDateFor = new Date().setDate(super_test);
+        // console.log(testDateFor);
+
+        // this.dateFromCell = new Date().setDate(super_test);
+        // console.log(this.dateFromCell);
 
 
         if (start < today) {
-          // alert('Cannot add appointment to this date.');
           this.disableDatesBeforeCurrentDate = true;
         } else {
           this.display = true;
-          // this.id = e.findIndex();
           this.dateStart = e.dateStr;
           this.dateEnd = e.dateStr;
         }
 
       },
-      // eventRender: function(date, cell) {
-      // },
       eventClick: (event, element, eventClickInfo) => {
 
         console.log(event.event.title);
         console.log(event.event.id);
+        let testhourminutes = event.event.start;
+        let testhour = this.datePipe.transform(testhourminutes, 'h:mm:ss a');
+        console.log(testhour);
+
         console.log(event);
 
-
+        this.dateHourToBeChanged = event.event.start;
         this.testEventTitle = event.event.title;
-
-        let eventId = event.event.id;
-
         this.eventId = event.event.id;
 
-        let eventTitle = event.event.title;
-
-        // let calEvent = eventClickInfo.event;
-        // console.log(calEvent);
-
-        // if(event.title) {
-        //   console.log(title);
-        // }
         this.updateEventModal = true;
 
-        // console.log(this.calendar.events[4].title);
         console.log(event);
-
-        // console.log(typeof event);
-
-        // event.title = true;
-        // this.eventTitleToBeChanged = event.title;
-
-      //   let indexOfEvents = [];
-
-      //   let events = this.events;
-
-      // console.log(events.findIndex(event));
-
-      // console.log(indexOfEvents);
-      // console.log(event.title);
-
-
-
-        // events.forEach((index) => {
-        //   console.log(index);
-        // })
-
-        // console.log(events);
 
         this.eventTitleToBeChanged = event.event.title
 
-        // ('updateEvent', event)
-
         let getEvent = this.events.filter(el => el.id === event.event.id)
         console.log(getEvent);
-
-
-        // const oldEvent = this.events.findIndex( e => e.id === event.event.id);
         this.oldEventIndex = this.events.findIndex( e => e.id === event.event.id);
-        // this.oldEventData = this.events[this.oldEventIndex];
-
-
-        // const oldEvent = this.events.findIndex( e => e.id === event.event.id);
-
 
       },
       eventAfterAllRender: this.colorEvents(),
@@ -249,13 +245,10 @@ export class FrmSedutaSegrComponent implements OnInit, AfterViewInit {
   colorEvents() {
 
     let events = this.events;
-
     let dates = {};
 
     events.forEach((ev, index) => {
       let startDateStr = this.datePipe.transform(ev.date, 'yyyy-MM-dd');
-
-      // console.log(startDateStr);
 
       dates[startDateStr] = (dates[startDateStr] + 1 || 1);
     });
@@ -283,13 +276,11 @@ export class FrmSedutaSegrComponent implements OnInit, AfterViewInit {
 
   daysToDisable() {
     let events = this.events;
-    // console.log(events);
 
     let dates = {};
 
     events.forEach((ev, index) => {
       let startDateStr = this.datePipe.transform(ev.date, 'yyyy-MM-dd');
-      // console.log(startDateStr);
       dates[startDateStr] = (dates[startDateStr] + 1 || 1);
     });
 
@@ -313,10 +304,6 @@ export class FrmSedutaSegrComponent implements OnInit, AfterViewInit {
     let today = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
     let newButtonId = this.events.slice(-1)[0].id;
 
-
-    // let test = this.events[this.events.length - 1];
-    // console.log(test);
-
     this.displayAddAppointment = !this.displayAddAppointment;
 
     // if (start < today) {
@@ -329,7 +316,6 @@ export class FrmSedutaSegrComponent implements OnInit, AfterViewInit {
     //   }]
     // }
 
-    // let daysLimitBool = false;
     console.log(this.dateStartFromButton);
 
 
@@ -344,7 +330,6 @@ export class FrmSedutaSegrComponent implements OnInit, AfterViewInit {
 
 
     if (daysLimitBool) {
-      // alert("Reached total amount of events. Please select another date.");
       this.totalAmountOfEvents = true;
     } else {
       this.events = [...this.events, {
@@ -362,13 +347,10 @@ export class FrmSedutaSegrComponent implements OnInit, AfterViewInit {
 
   addAppointment() {
 
-    // this.dateFromCell = this.dateStart + this.dateEnd;
-
     let daysLimitBool = false;
 
-    let newId = this.events.slice(-1)[0].id;
-    console.log(newId);
 
+    let newId = this.events.slice(-1)[0].id;
     // console.log(newId);
 
 
@@ -381,25 +363,18 @@ export class FrmSedutaSegrComponent implements OnInit, AfterViewInit {
 
 
     if (daysLimitBool) {
-      // alert("Reached total amount of events. Please select another date.");
       this.totalAmountOfEvents = true;
     } else {
       this.events = [...this.events, {
         id: newId + 1,
         title: this.appointment,
         date: this.dateFromCell,
-        // date: this.dateStart,
-        // dateEnd: this.dateEnd,
-        // allDay: false,
-        // time: this.date8,
-        // allDay: false
+        allDay: false
       }]
       this.daysToDisable();
     }
 
-    console.log(this.events);
-
-
+    // console.log(this.events);
     return this.appointment = "", this.display = false, this.colorEvents();
 
   }
@@ -412,6 +387,7 @@ export class FrmSedutaSegrComponent implements OnInit, AfterViewInit {
     // this.oldEventData
 
       this.events[this.oldEventIndex].title = this.eventTitleToBeChanged;
+      this.events[this.oldEventIndex].date = this.dateHourToBeChanged;
       this.events = [...this.events];
 
 

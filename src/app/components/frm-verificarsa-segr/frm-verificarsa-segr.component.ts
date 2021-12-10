@@ -32,7 +32,7 @@ export class FrmVerificarsaSegrComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.nodeService.getFilesystem().then(files => this.files = files);
+    // this.nodeService.getFilesystem().then(files => this.files = files);
 
     this.cols = [
       { field: 'document', header: 'Nome RSA' },
